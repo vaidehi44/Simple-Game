@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Game</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body onload="startGame()">
+    
+    <script>
+        function startGame() {
+            gameArea.start();
+        }
+        const gameArea = {
+            canvas: document.createElement("canvas"),
+            start: function() {
+                this.canvas.height = 300;
+                this.canvas.width = 400;
+                this.context = this.canvas.getContext("2D");
+                document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+            }
+        }
+    </script>
+
+</body>
+</html>

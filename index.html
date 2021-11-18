@@ -43,14 +43,36 @@
                 ctx.fillStyle = color;
                 ctx.fillRect(this.x, this.y, this.width, this.height);
             }
+            this.move = function() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+            }
         }
 
         function updateGameArea() {
             gameArea.clear();
-            gamePiece.x += 1;
+            gamePiece.move();
             gamePiece.update();
         }
+
+        function moveUp() {
+            gamePiece.speedY = -1;
+        }
+
+        function moveDown() {
+            gamePiece.speedY = 1;
+        }
+
+        function clearMove() {
+            gamePiece.speedX = 0;
+            gamePiece.speedY = 0;
+        }
     </script>
+
+    <div class="btns">
+        <button onmousedown="moveUp()" onmouseup="clearMove()">UP</button>
+        <button onmousedown="moveDown()" onmouseup="clearMove()">DOWN</button>
+    </div>
 
 </body>
 </html>

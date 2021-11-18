@@ -8,3 +8,15 @@ canvas{
     margin-right: auto;
     margin-top: 5vh;
 }
+
+.btns {
+    position: relative;
+    top: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.btns button{
+    padding: 6px;
+    background-color: rgb(207, 191, 186);
+}

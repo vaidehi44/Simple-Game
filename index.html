@@ -25,6 +25,13 @@
                 this.context = this.canvas.getContext("2d");
                 document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                 this.interval = setInterval(updateGameArea, 20);
+                window.addEventListener('keydown', function (e) {
+                    gameArea.keys = (gameArea.keys || []);
+                    gameArea.keys[e.keyCode] = (e.type == "keydown");
+                });
+                window.addEventListener('keyup', function (e) {
+                    gameArea.keys[e.keyCode] = (e.type == "keydown");            
+                });
             },
             clear: function() {
                 this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
@@ -32,6 +39,7 @@
         }
 
         function component(x, y, height, width, color) {
+            this.btn_on = false;
             this.width = width;
             this.height = height; 
             this.x = x;
@@ -49,29 +57,38 @@
             }
         }
 
-        function updateGameArea() {
-            gameArea.clear();
-            gamePiece.move();
-            gamePiece.update();
-        }
-
         function moveUp() {
             gamePiece.speedY = -1;
+            gamePiece.btn_on = true;
         }
 
         function moveDown() {
             gamePiece.speedY = 1;
+            gamePiece.btn_on = true;
         }
 
         function clearMove() {
             gamePiece.speedX = 0;
             gamePiece.speedY = 0;
+            gamePiece.btn_on = false;
+        }
+
+        function updateGameArea() {
+            gameArea.clear();
+            if (!gamePiece.btn_on){
+                gamePiece.speedX = 0;
+                gamePiece.speedY = 0;
+            }
+            if (gameArea.keys && gameArea.keys[38]) {gamePiece.speedY = -1; }
+            if (gameArea.keys && gameArea.keys[40]) {gamePiece.speedY = 1; }
+            gamePiece.move();
+            gamePiece.update();
         }
     </script>
 
     <div class="btns">
-        <button onmousedown="moveUp()" onmouseup="clearMove()">UP</button>
-        <button onmousedown="moveDown()" onmouseup="clearMove()">DOWN</button>
+        <button id="upBtn" onmousedown="moveUp()" onmouseup="clearMove()">UP</button>
+        <button id="downBtn" onmousedown="moveDown()" onmouseup="clearMove()">DOWN</button>
     </div>
 
 </body>

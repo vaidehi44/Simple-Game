@@ -26,7 +26,10 @@
                 this.context = this.canvas.getContext("2d");
                 document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                 this.frame_no = 0;
-                this.interval = setInterval(updateGameArea, 20);
+                this.frame_speed = 20; //every 20ms
+                this.intervals = [];
+                this.interval = setInterval(updateGameArea, this.frame_speed);
+                this.intervals.push(this.interval);
                 window.addEventListener('keydown', function (e) {
                     gameArea.keys = (gameArea.keys || []);
                     gameArea.keys[e.keyCode] = (e.type == "keydown");
@@ -35,11 +38,15 @@
                     gameArea.keys[e.keyCode] = (e.type == "keydown");            
                 });
             },
+            updateFrameSpeed: function() {
+                this.interval = setInterval(updateGameArea, this.frame_speed);
+                this.intervals.push(this.interval);
+            },
             clear: function() {
                 this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
             },
             stop : function() {
-                clearInterval(this.interval);
+                this.intervals.forEach(int => clearInterval(int));
             }
         }
 
@@ -111,7 +118,7 @@
 
             gameArea.clear();
             gameArea.frame_no += 1;
-            if (gameArea.frame_no==1 || every_n_interval(120)) {
+            if (gameArea.frame_no==1 || every_n_interval(150)) {
                 minX = 20;
                 maxX = 100;
                 obs_x = Math.floor(Math.random()*(maxX-minX) + minX + gameArea.canvas.width);
@@ -123,6 +130,10 @@
                 gap = Math.floor(Math.random()*(maxGap-minGap) + minGap);
                 obstacles.push(new component(obs_x, 0, height, 10, "green"));
                 obstacles.push(new component(obs_x, height+gap, (gameArea.canvas.height-gap-height), 10, "green"));
+            }
+            if (every_n_interval(1000)) {
+                gameArea.frame_speed /= 1.05;
+                gameArea.updateFrameSpeed();
             }
             for (i=0; i<obstacles.length; i++) {
                 obstacles[i].x -= 1;

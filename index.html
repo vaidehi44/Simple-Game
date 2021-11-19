@@ -95,9 +95,17 @@
             gamePiece.speedY = -1;
             gamePiece.btn_on = true;
         }
-
         function moveDown() {
             gamePiece.speedY = 1;
+            gamePiece.btn_on = true;
+        }
+        function moveLeft() {
+            gamePiece.speedX = -1;
+            gamePiece.btn_on = true;
+        }
+
+        function moveRight() {
+            gamePiece.speedX = 1;
             gamePiece.btn_on = true;
         }
 
@@ -144,8 +152,11 @@
                 gamePiece.speedX = 0;
                 gamePiece.speedY = 0;
             }
-            if (gameArea.keys && gameArea.keys[38]) {gamePiece.speedY = -2; }
-            if (gameArea.keys && gameArea.keys[40]) {gamePiece.speedY = 2; }
+            if (gameArea.keys && gameArea.keys[38]) {gamePiece.speedY = -1; }
+            if (gameArea.keys && gameArea.keys[40]) {gamePiece.speedY = 1; }
+            if (gameArea.keys && gameArea.keys[37]) {gamePiece.speedX = -1; }
+            if (gameArea.keys && gameArea.keys[39]) {gamePiece.speedX = 1; }
+
             gamePiece.move();
             gamePiece.update();
         }
@@ -161,7 +172,10 @@
 
     <div class="btns">
         <button id="upBtn" onmousedown="moveUp()" onmouseup="clearMove()">UP</button>
+        <button id="leftBtn" onmousedown="moveLeft()" onmouseup="clearMove()">LEFT</button>
+        <button id="rightBtn" onmousedown="moveRight()" onmouseup="clearMove()">RIGHT</button>
         <button id="downBtn" onmousedown="moveDown()" onmouseup="clearMove()">DOWN</button>
+        <button id="rightBtn" onmousedown="moveRight()" onmouseup="clearMove()">RIGHT</button>
     </div>
 
 </body>

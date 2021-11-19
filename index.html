@@ -37,6 +37,9 @@
             },
             clear: function() {
                 this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
+            },
+            stop : function() {
+                clearInterval(this.interval);
             }
         }
 
@@ -56,6 +59,28 @@
             this.move = function() {
                 this.x += this.speedX;
                 this.y += this.speedY;
+            }
+            this.crashWith = function(otherObj) {
+                myLeft = this.x;
+                myRight = this.x + this.width;
+                myTop = this.y;
+                myBottom = this.y + this.height;
+                objLeft = otherObj.x;
+                objRight = otherObj.x + otherObj.width;
+                objTop = otherObj.y;
+                objBottom = otherObj.y + otherObj.height;
+                let crash = true;
+
+                if (
+                    (myBottom < objTop) ||
+                    (myTop > objBottom) ||
+                    (myLeft > objRight) ||
+                    (myRight < objLeft)
+                ){
+                    crash = false;
+                }
+
+                return crash;
             }
         }
 
@@ -77,6 +102,12 @@
 
         function updateGameArea() {
             var obs_x, obs_y;
+
+            for (i=0; i<obstacles.length; i++) {
+                if (gamePiece.crashWith(obstacles[i])) {
+                    gameArea.stop();
+                }
+            }
 
             gameArea.clear();
             gameArea.frame_no += 1;

@@ -15,7 +15,7 @@
 
         function startGame() {
             gameArea.start();
-            gamePiece = new component(20, 50, 30, 25, "red");
+            gamePiece = new component(100, 50, 30, 25, "red");
         }
 
         var gameArea = {
@@ -101,7 +101,7 @@
         }
 
         function updateGameArea() {
-            var obs_x, obs_y;
+            var obs_x, height, minHeight, maxHeight, gap, minGap, maxGap;
 
             for (i=0; i<obstacles.length; i++) {
                 if (gamePiece.crashWith(obstacles[i])) {
@@ -113,8 +113,14 @@
             gameArea.frame_no += 1;
             if (gameArea.frame_no==1 || every_n_interval(150)) {
                 obs_x = gameArea.canvas.width;
-                obs_y = gameArea.canvas.height - 200;
-                obstacles.push(new component(obs_x, obs_y, 200, 10, "green"));
+                minHeight = 20;
+                maxHeight = 300;
+                height = Math.floor(Math.random()*(maxHeight-minHeight) + minHeight);
+                minGap = 80;
+                maxGap = 200;
+                gap = Math.floor(Math.random()*(maxGap-minGap) + minGap);
+                obstacles.push(new component(obs_x, 0, height, 10, "green"));
+                obstacles.push(new component(obs_x, height+gap, (gameArea.canvas.height-gap-height), 10, "green"));
             }
             for (i=0; i<obstacles.length; i++) {
                 obstacles[i].x -= 1;

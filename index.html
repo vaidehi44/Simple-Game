@@ -11,6 +11,7 @@
     
     <script>
         var gamePiece;
+        var obstacles = [];
 
         function startGame() {
             gameArea.start();
@@ -20,10 +21,11 @@
         var gameArea = {
             canvas: document.createElement("canvas"),
             start: function() {
-                this.canvas.height = 300;
-                this.canvas.width = 400;
+                this.canvas.height = 500;
+                this.canvas.width = 800;
                 this.context = this.canvas.getContext("2d");
                 document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+                this.frame_no = 0;
                 this.interval = setInterval(updateGameArea, 20);
                 window.addEventListener('keydown', function (e) {
                     gameArea.keys = (gameArea.keys || []);
@@ -74,7 +76,20 @@
         }
 
         function updateGameArea() {
+            var obs_x, obs_y;
+
             gameArea.clear();
+            gameArea.frame_no += 1;
+            if (gameArea.frame_no==1 || every_n_interval(150)) {
+                obs_x = gameArea.canvas.width;
+                obs_y = gameArea.canvas.height - 200;
+                obstacles.push(new component(obs_x, obs_y, 200, 10, "green"));
+            }
+            for (i=0; i<obstacles.length; i++) {
+                obstacles[i].x -= 1;
+                obstacles[i].update();
+            }
+
             if (!gamePiece.btn_on){
                 gamePiece.speedX = 0;
                 gamePiece.speedY = 0;
@@ -83,6 +98,14 @@
             if (gameArea.keys && gameArea.keys[40]) {gamePiece.speedY = 1; }
             gamePiece.move();
             gamePiece.update();
+        }
+
+        function every_n_interval(n) {
+            if ((gameArea.frame_no/n)%1==0){
+                return true;
+            } else {
+                return false;
+            }
         }
     </script>
 

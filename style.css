@@ -17,6 +17,7 @@ canvas{
 }
 
 .btns button{
-    padding: 6px;
+    padding: 5px;
     background-color: rgb(207, 191, 186);
+    margin: 3px;
 }

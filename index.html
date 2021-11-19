@@ -101,7 +101,7 @@
         }
 
         function updateGameArea() {
-            var obs_x, height, minHeight, maxHeight, gap, minGap, maxGap;
+            var minX, maxX, obs_x, height, minHeight, maxHeight, gap, minGap, maxGap;
 
             for (i=0; i<obstacles.length; i++) {
                 if (gamePiece.crashWith(obstacles[i])) {
@@ -111,8 +111,10 @@
 
             gameArea.clear();
             gameArea.frame_no += 1;
-            if (gameArea.frame_no==1 || every_n_interval(150)) {
-                obs_x = gameArea.canvas.width;
+            if (gameArea.frame_no==1 || every_n_interval(120)) {
+                minX = 20;
+                maxX = 100;
+                obs_x = Math.floor(Math.random()*(maxX-minX) + minX + gameArea.canvas.width);
                 minHeight = 20;
                 maxHeight = 300;
                 height = Math.floor(Math.random()*(maxHeight-minHeight) + minHeight);
@@ -131,8 +133,8 @@
                 gamePiece.speedX = 0;
                 gamePiece.speedY = 0;
             }
-            if (gameArea.keys && gameArea.keys[38]) {gamePiece.speedY = -1; }
-            if (gameArea.keys && gameArea.keys[40]) {gamePiece.speedY = 1; }
+            if (gameArea.keys && gameArea.keys[38]) {gamePiece.speedY = -2; }
+            if (gameArea.keys && gameArea.keys[40]) {gamePiece.speedY = 2; }
             gamePiece.move();
             gamePiece.update();
         }

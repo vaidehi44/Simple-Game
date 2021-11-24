@@ -9,15 +9,32 @@ canvas{
     margin-top: 5vh;
 }
 
+.components {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.others {
+    width: 25%;
+}
+
 .btns {
-    position: relative;
-    top: 50px;
-    width: 100%;
     text-align: center;
+    width: 40%;
 }
 
 .btns button{
     padding: 5px;
     background-color: rgb(207, 191, 186);
     margin: 3px;
+}
+
+.score_div {
+    text-align: center;
+    width: 20%;
+    align-self: center;
+}
+.score_div p{
+    font-size: 25px;
 }

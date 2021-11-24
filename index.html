@@ -9,17 +9,21 @@
 </head>
 <body onload="startGame()">
 
-    <div class="btns">
-        <button id="upBtn" onmousedown="moveUp()" onmouseup="clearMove()">UP</button><br>
-        <button id="leftBtn" onmousedown="moveLeft()" onmouseup="clearMove()">LEFT</button>
-        <button id="rightBtn" onmousedown="moveRight()" onmouseup="clearMove()">RIGHT</button><br>
-        <button id="downBtn" onmousedown="moveDown()" onmouseup="clearMove()">DOWN</button>
-    </div>
+    <div class="components">
+        <div class="others">
 
-    <div class="score_div">
-        <h4>Score: <span id="score"></span></h4>
+        </div>
+        <div class="btns">
+            <button id="upBtn" onmousedown="moveUp()" onmouseup="clearMove()">UP</button><br>
+            <button id="leftBtn" onmousedown="moveLeft()" onmouseup="clearMove()">LEFT</button>
+            <button id="rightBtn" onmousedown="moveRight()" onmouseup="clearMove()">RIGHT</button><br>
+            <button id="downBtn" onmousedown="moveDown()" onmouseup="clearMove()">DOWN</button>
+        </div>
+    
+        <div class="score_div">
+            <p>Score: <span id="score"></span></p>
+        </div>    
     </div>
-
     
     <script>
         var gamePiece;

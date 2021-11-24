@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body onload="startGame()">
+
+    <div class="btns">
+        <button id="upBtn" onmousedown="moveUp()" onmouseup="clearMove()">UP</button><br>
+        <button id="leftBtn" onmousedown="moveLeft()" onmouseup="clearMove()">LEFT</button>
+        <button id="rightBtn" onmousedown="moveRight()" onmouseup="clearMove()">RIGHT</button><br>
+        <button id="downBtn" onmousedown="moveDown()" onmouseup="clearMove()">DOWN</button>
+    </div>
+
+    <div class="score_div">
+        <h4>Score: <span id="score"></span></h4>
+    </div>
+
     
     <script>
         var gamePiece;
@@ -126,6 +138,7 @@
 
             gameArea.clear();
             gameArea.frame_no += 1;
+            updateScore();
             if (gameArea.frame_no==1 || every_n_interval(150)) {
                 minX = 20;
                 maxX = 100;
@@ -168,14 +181,14 @@
                 return false;
             }
         }
+
+        function updateScore() {
+            var score = document.getElementById('score');
+            score.innerHTML = gameArea.frame_no;
+        }
+
     </script>
 
-    <div class="btns">
-        <button id="upBtn" onmousedown="moveUp()" onmouseup="clearMove()">UP</button><br>
-        <button id="leftBtn" onmousedown="moveLeft()" onmouseup="clearMove()">LEFT</button>
-        <button id="rightBtn" onmousedown="moveRight()" onmouseup="clearMove()">RIGHT</button><br>
-        <button id="downBtn" onmousedown="moveDown()" onmouseup="clearMove()">DOWN</button>
-    </div>
 
 </body>
 </html>
